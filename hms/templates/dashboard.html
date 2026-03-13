@@ -1,0 +1,55 @@
+{% if request.user.doctor %}
+<a href="{% url 'create_slot' %}">Create Slot</a>
+<h2>Available Slots</h2>
+
+<table border="1">
+
+<tr>
+<th>Date</th>
+<th>Start</th>
+<th>End</th>
+
+</tr>
+
+{% for slot in slots %}
+
+<tr>
+
+<td>{{ slot.date }}</td>
+<td>{{ slot.start_time }}</td>
+<td>{{ slot.end_time }}</td>
+
+<td>
+
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+{% endif %}
+
+
+{% if request.user.patient %}
+
+<h2>Doctors</h2>
+
+<ul>
+
+{% for doctor in doctors %}
+
+<li>
+
+Dr. {{ doctor.user.username }}
+
+<a href="{% url 'view_slot' %}">View Slots</a>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+{% endif %}

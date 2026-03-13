@@ -16,7 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from . import views
+from hmsApp import views as hms_view
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',views.home,name='home'),
+    path('signup/',views.signup,name='signup'),
+    path('signup/doctor/',views.doctor_signup,name='doctor_signup'),
+    path('signup/patient/',views.patient_signup,name='patient_signup'),
+    path('login/',views.login_view,name='login'),
+
+    path('dashboard/',views.dashboard,name='dashboard'),
+    path('view_doc/',hms_view.view_doc,name='view_doc'),
+    path('view_slot/',hms_view.view_slot,name='view_slot'),
+
+    path('create_slot',hms_view.create_slot,name='create_slot'),
+    path('doc_slot/',hms_view.view_slot,name='doc_slot'),
 ]
+

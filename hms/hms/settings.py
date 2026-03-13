@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-30_9)3***$ks$nocgdo_6ptu_h^ot5^c$wy#!n+6)agl*^0%!b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hmsApp',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'hms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,11 +74,17 @@ WSGI_APPLICATION = 'hms.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+from dotenv import load_dotenv
+load_dotenv()
+import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASS'),
+        'HOST': 'localhost',  # Or '127.0.0.1'
+        'PORT': '5432',
     }
 }
 

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>My Availability Slots</h2>
+
+<table border="1">
+
+<tr>
+<th>Date</th>
+<th>Start</th>
+<th>End</th>
+<th>Status</th>
+</tr>
+
+{% for slot in slots %}
+
+<tr>
+<td>{{ slot.date }}</td>
+<td>{{ slot.start_time }}</td>
+<td>{{ slot.end_time }}</td>
+<td>
+
+{% if not slot.is_booked %}
+
+<a href="{% url 'book_slot' slot.id %}">
+Book
+</a>
+
+{% else %}
+
+Booked
+
+{% endif %}
+
+
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Select Role</h2>
+
+<form method="POST" action="{% url 'signup' %}">
+{% csrf_token %}
+
+<label>
+<input type="radio" name="role" value="doctor">
+Doctor
+</label>
+
+<br>
+
+<label>
+<input type="radio" name="role" value="patient">
+Patient
+</label>
+
+<br><br>
+
+<button type="submit">Continue</button>
+
+</form>
+
+{% endblock %}
