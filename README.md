@@ -1,4 +1,4 @@
-### HMS
+# HMS
 An Integrated Hospital Management System with Serverless Notifications & Google Calendar Sync.
 
 Healthcare Management System (HMS) is designed to bridge the gap between doctors and patients. The platform leverages a decoupled architecture, using Django for the core logic and an AWS Lambda-style Serverless microservice for automated communication.
@@ -14,28 +14,30 @@ Healthcare Management System (HMS) is designed to bridge the gap between doctors
 
 -Modern UI/UX: A professional, responsive interface built with Bootstrap 5 and Crispy Forms.
 
-# Tech Stack
+## Tech Stack
 
-# Backend
+### Backend
 Framework: Django (Python 3.x)
 
 Database: PostgreSQL (Production-ready relational storage)
 
 Authentication: Django Auth with Role-based Groups
 
-# Microservices
+### Microservices
 Framework: Serverless Framework
 
 Environment: AWS Lambda (Simulated via Serverless Offline)
 
 Service: Node.js/Python handler for SMTP communication
 
-# APIs & Tools
+### APIs & Tools
 Google Calendar API: OAuth2 integration for schedule synchronization.
 
 Gmail SMTP: Secure automated mailing using App Passwords.
 
 Frontend: Bootstrap 5, FontAwesome, Google Fonts.
+
+
 
 
 ## Project Structure
@@ -57,7 +59,7 @@ Frontend: Bootstrap 5, FontAwesome, Google Fonts.
 1. Backend Setup
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Muskan-Tarafder/Hospital_Management.git
 
 # Install dependencies
 pip install -r requirements.txt
