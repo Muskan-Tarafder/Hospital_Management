@@ -22,7 +22,7 @@ def create_calendar_event(user, slot):
         )
 
         service = build('calendar', 'v3', credentials=credentials)
-
+        
         start_dt = f"{slot.date}T{slot.start_time}"
         end_dt = f"{slot.date}T{slot.end_time}"
 
@@ -31,16 +31,17 @@ def create_calendar_event(user, slot):
             'description': 'Appointment booked via CareSync HMS',
             'start': {
                 'dateTime': start_dt,
-                'timeZone': 'UTC',
+                'timeZone': 'Asia/Kolkata',
             },
             'end': {
                 'dateTime': end_dt,
-                'timeZone': 'UTC',
+                'timeZone': 'Asia/Kolkata',
             },
         }
         
         print(f"Attempting to create event: {event}")
         service.events().insert(calendarId='primary', body=event).execute()
+        print('Event added')
     except Exception as e:
         print(f"Error creating calendar event: {e}")
 

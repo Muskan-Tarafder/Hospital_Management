@@ -20,8 +20,8 @@ def send_email_handler(event, context):
             return {"statusCode": 400, "body": json.dumps({"error": "No recipient"})}
 
         # 2. SMTP Configuration
-        sender_email = email
-        sender_password = password
+        sender_email = 'muskantarafder357@gmail.com'
+        sender_password = '16digit password'
 
         # 3. Create Email
         message = MIMEMultipart()
