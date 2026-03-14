@@ -6,13 +6,13 @@ Healthcare Management System (HMS) is designed to bridge the gap between doctors
 ## Key Features
 - Role-Based Access Control: Separate, customized dashboards for Doctors and Patients.
 
--Google Calendar API Integration: Doctors can sync their booked slots directly to their Google Calendar, ensuring they never miss a consultation.
+- Google Calendar API Integration: Doctors can sync their booked slots directly to their Google Calendar, ensuring they never miss a consultation.
 
--Serverless Email Microservice: A dedicated Node.js/Python service built with the Serverless Framework that triggers instant email notifications upon booking.
+- Serverless Email Microservice: A dedicated Node.js/Python service built with the Serverless Framework that triggers instant email notifications upon booking.
 
--Real-time Availability: Patients can browse specialized doctors and book real-time slots.
+- Real-time Availability: Patients can browse specialized doctors and book real-time slots.
 
--Modern UI/UX: A professional, responsive interface built with Bootstrap 5 and Crispy Forms.
+- Modern UI/UX: A professional, responsive interface built with Bootstrap 5 and Crispy Forms.
 
 ## Tech Stack
 
@@ -42,6 +42,7 @@ Frontend: Bootstrap 5, FontAwesome, Google Fonts.
 
 ## Project Structure
 ```bash
+hms
 ├── hms/                        # Django Project Root
 │   ├── hmsApp/                 # Main Application Logic
 │   ├── templates/              # Styled HTML UI (Bootstrap 5)
