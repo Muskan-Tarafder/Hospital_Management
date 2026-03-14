@@ -14,7 +14,7 @@ Healthcare Management System (HMS) is designed to bridge the gap between doctors
 
 -Modern UI/UX: A professional, responsive interface built with Bootstrap 5 and Crispy Forms.
 
-## Tech Stack
+# Tech Stack
 
 # Backend
 Framework: Django (Python 3.x)
