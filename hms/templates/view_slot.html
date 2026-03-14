@@ -1,44 +1,117 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}" class="text-decoration-none">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Doctor Availability</li>
+                </ol>
+            </nav>
+            <div class="d-flex align-items-center">
+                <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
+                    <i class="fa-solid fa-user-doctor fs-3"></i>
+                </div>
+                <div>
+                    <h2 class="fw-bold mb-0">Availability for Dr. {{ doctor.user.username }}</h2>
+                    <p class="text-muted mb-0">{{ doctor.specialization|default:"General Physician" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-md-end d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left me-2"></i>Back to Doctors
+            </a>
+        </div>
+    </div>
 
-<h2>My Availability Slots</h2>
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-header bg-white py-3 border-bottom">
+            <h5 class="mb-0 fw-bold"><i class="fa-regular fa-calendar-check me-2 text-primary"></i>Available Timings</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th class="text-end pe-4">Availability Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for slot in slots %}
+                    <tr>
+                        <td class="ps-4">
+                            <span class="fw-medium text-dark">
+                                <i class="fa-regular fa-calendar me-2 text-primary opacity-75"></i>{{ slot.date }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="text-secondary"><i class="fa-regular fa-clock me-1 small"></i>{{ slot.start_time }}</span>
+                        </td>
+                        <td>
+                            <span class="text-secondary"><i class="fa-regular fa-clock me-1 small"></i>{{ slot.end_time }}</span>
+                        </td>
+                        <td class="text-end pe-4">
+                            {% if not slot.is_booked %}
+                                <a href="{% url 'book_slot' slot.id %}" class="btn btn-primary btn-sm px-4 rounded-pill shadow-sm">
+                                    Book Now
+                                </a>
+                            {% else %}
+                                <span class="badge rounded-pill bg-light text-secondary border px-3 py-2">
+                                    <i class="fa-solid fa-lock me-1"></i> Occupied
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5">
+                            <div class="opacity-50 mb-3">
+                                <i class="fa-solid fa-calendar-minus fs-1"></i>
+                            </div>
+                            <h5 class="text-muted">No availability slots found</h5>
+                            <p class="small text-muted">This doctor hasn't posted any slots for the upcoming days.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<table border="1">
+    <div class="mt-4 row g-3">
+        <div class="col-md-6">
+            <div class="d-flex align-items-start p-3 bg-primary bg-opacity-10 rounded-4">
+                <i class="fa-solid fa-envelope-circle-check text-primary me-3 mt-1 fs-5"></i>
+                <div>
+                    <h6 class="fw-bold mb-1">Instant Confirmation</h6>
+                    <p class="small text-muted mb-0">Once you click 'Book', an automated confirmation email will be sent to your registered address.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex align-items-start p-3 bg-info bg-opacity-10 rounded-4">
+                <i class="fa-brands fa-google text-info me-3 mt-1 fs-5"></i>
+                <div>
+                    <h6 class="fw-bold mb-1">Calendar Integration</h6>
+                    <p class="small text-muted mb-0">This appointment will be automatically added to the doctor's Google Calendar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<tr>
-<th>Date</th>
-<th>Start</th>
-<th>End</th>
-<th>Status</th>
-</tr>
-
-{% for slot in slots %}
-
-<tr>
-<td>{{ slot.date }}</td>
-<td>{{ slot.start_time }}</td>
-<td>{{ slot.end_time }}</td>
-<td>
-
-{% if not slot.is_booked %}
-
-<a href="{% url 'book_slot' slot.id %}">
-Book
-</a>
-
-{% else %}
-
-Booked
-
-{% endif %}
-
-
-</td>
-</tr>
-
-{% endfor %}
-
-</table>
-
+<style>
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.02);
+    }
+    .badge {
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+</style>
 {% endblock %}

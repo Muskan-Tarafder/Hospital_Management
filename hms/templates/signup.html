@@ -1,27 +1,77 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8 col-lg-6">
+        
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item text-muted">Role Selection</li>
+                <li class="breadcrumb-item active fw-bold text-primary" aria-current="page">Account Details</li>
+            </ol>
+        </nav>
 
-<h2>Signup</h2>
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-4 p-md-5">
+                
+                <div class="text-center mb-5">
+                    <div class="bg-success bg-opacity-10 d-inline-block p-3 rounded-circle mb-3">
+                        <i class="fa-solid fa-user-plus text-success fs-3"></i>
+                    </div>
+                    <h2 class="fw-bold h4">Complete Your Profile</h2>
+                    <p class="text-muted small">Fill in the information below to join the CareSync network</p>
+                </div>
 
-<form method="POST">
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form|crispy }}
+                        </div>
+                    </div>
 
-{% csrf_token %}
-<label>Username</label>
-<input type="text" name="username" required>
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg py-2 shadow-sm">
+                            <i class="fa-solid fa-id-card me-2"></i>Create My Account
+                        </button>
+                    </div>
+                </form>
 
-<br><br>
+                <div class="mt-4 text-center">
+                    <p class="small text-muted mb-0">Already have an account?</p>
+                    <a href="{% url 'login' %}" class="text-primary fw-bold text-decoration-none small">Sign in instead</a>
+                </div>
+            </div>
+        </div>
 
-<label>Password</label>
-<input type="password" name="password" required>
+        <div class="mt-5 text-center">
+            <div class="d-flex justify-content-center align-items-center gap-4 opacity-50">
+                <div class="small"><i class="fa-solid fa-shield-check me-1"></i> Data Privacy</div>
+                <div class="small"><i class="fa-solid fa-lock me-1"></i> Secure Storage</div>
+                <div class="small"><i class="fa-solid fa-envelope-circle-check me-1"></i> Verified Email</div>
+            </div>
+        </div>
 
-<br><br>
+    </div>
+</div>
 
-
-{{ form.as_p }}
-
-<button type="submit">Register</button>
-
-</form>
-
+<style>
+    /* Customizing form appearance */
+    .form-control {
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ced4da;
+    }
+    .form-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #495057;
+    }
+    .help-text, .form-text {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+</style>
 {% endblock %}

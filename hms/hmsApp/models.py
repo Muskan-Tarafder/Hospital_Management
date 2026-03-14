@@ -5,6 +5,7 @@ class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     specialization = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
+    email = models.EmailField(null=True,default='temp@gmail.com')
 
     def __str__(self):
         return f"Dr. {self.user.username}"
@@ -13,7 +14,7 @@ class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15)
     date_of_birth = models.DateField(null=True, blank=True)
-
+    email = models.EmailField(null=True,default='temp@gmail.com')
     def __str__(self):
         return self.user.username
     
@@ -33,5 +34,15 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{self.patient} booked {self.slot}'
+        return f'{self.patient} booked {self.slot}'
+
+class GoogleCredential(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    token = models.TextField()
+    refresh_token = models.TextField()
+    token_uri = models.TextField()
+    client_id = models.TextField()
+    client_secret = models.TextField()
+    scopes = models.TextField()
+
     

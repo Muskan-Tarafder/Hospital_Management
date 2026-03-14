@@ -25,12 +25,20 @@ urlpatterns = [
     path('signup/doctor/',views.doctor_signup,name='doctor_signup'),
     path('signup/patient/',views.patient_signup,name='patient_signup'),
     path('login/',views.login_view,name='login'),
+    path('logout/',views.logout_view,name='logout'),
 
     path('dashboard/',views.dashboard,name='dashboard'),
     path('view_doc/',hms_view.view_doc,name='view_doc'),
-    path('view_slot/',hms_view.view_slot,name='view_slot'),
+    path('view_slot/<int:doctor_id>',hms_view.view_slot,name='view_slot'),
+    path('book_slot/<int:slot_id>/',hms_view.book_slot,name='book_slot'),
+    path('view_booking/<int:patient_id>',hms_view.view_booking,name='view_booking'),
 
-    path('create_slot',hms_view.create_slot,name='create_slot'),
-    path('doc_slot/',hms_view.view_slot,name='doc_slot'),
+    path('create_slot/',hms_view.create_slot,name='create_slot'),
+    path('doc_slot/',hms_view.doc_slot,name='doc_slot'),
+    path('update_slot/<int:slot_id>/',hms_view.update_slot,name='update_slot'),
+    path('cancel_booking/<int:slot_id>/',hms_view.cancel_booking,name='cancel_booking'),
+
+    path('connect_google/',views.google_auth_init,name='connect_google'),
+    path('oauth2callback/', views.google_auth_callback, name='oauthcallback')
 ]
 

@@ -1,18 +1,61 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-5 col-lg-4">
+        
+        <div class="card border-0 shadow-lg rounded-4">
+            <div class="card-body p-5">
+                
+                <div class="text-center mb-4">
+                    <div class="bg-primary bg-opacity-10 d-inline-block p-3 rounded-circle mb-3">
+                        <i class="fa-solid fa-lock text-primary fs-3"></i>
+                    </div>
+                    <h2 class="fw-bold h4">Welcome Back</h2>
+                    <p class="text-muted small">Please enter your details to login</p>
+                </div>
 
-<h2>Login</h2>
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        {{ form|crispy }}
+                    </div>
 
-<form method="POST">
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg py-2">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
 
-{% csrf_token %}
-{{ form.as_p }}
+                <div class="mt-4 text-center">
+                    <p class="small text-muted mb-0">Don't have an account?</p>
+                    <a href="{% url 'signup' %}" class="text-primary fw-bold text-decoration-none small">Create an Account</a>
+                </div>
+            </div>
+        </div>
 
-<br><br>
+        <div class="text-center mt-4">
+            <p class="text-muted" style="font-size: 0.8rem;">
+                <i class="fa-solid fa-shield-halved me-1"></i> Secure Encrypted Access
+            </p>
+        </div>
 
-<button type="submit">Login</button>
+    </div>
+</div>
 
-</form>
-
+<style>
+    /* Styling for the crispy form inputs to match the rounded theme */
+    .form-control {
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        border: 1px solid #e0e0e0;
+    }
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+        border-color: #0d6efd;
+    }
+</style>
 {% endblock %}

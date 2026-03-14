@@ -10,3 +10,15 @@ class AvailabilityForm(forms.ModelForm):
             'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_time': forms.TimeInput(attrs={'type': 'time'}),
         }
+
+class SlotFilterForm(forms.Form):
+
+    doctor = forms.ModelChoiceField(
+        queryset=Doctor.objects.all(),
+        label="Select Doctor"
+    )
+
+    date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        label="Select Date"
+    )

@@ -1,28 +1,85 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-8 col-lg-6">
+        
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Join CareSync</h2>
+            <p class="text-muted">Choose your account type to continue with registration</p>
+        </div>
 
-<h2>Select Role</h2>
+        <form method="POST" action="{% url 'signup' %}" id="roleForm">
+            {% csrf_token %}
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <input type="radio" name="role" value="doctor" id="roleDoctor" class="btn-check" autocomplete="off" required>
+                    <label class="card h-100 border-0 shadow-sm role-card p-4 text-center d-block cursor-pointer" for="roleDoctor">
+                        <div class="role-icon bg-primary bg-opacity-10 text-primary mx-auto mb-3">
+                            <i class="fa-solid fa-user-doctor fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold">Doctor</h4>
+                        <p class="small text-muted mb-0">Manage your schedule and connect with patients via Google Calendar.</p>
+                    </label>
+                </div>
 
-<form method="POST" action="{% url 'signup' %}">
-{% csrf_token %}
+                <div class="col-md-6">
+                    <input type="radio" name="role" value="patient" id="rolePatient" class="btn-check" autocomplete="off">
+                    <label class="card h-100 border-0 shadow-sm role-card p-4 text-center d-block cursor-pointer" for="rolePatient">
+                        <div class="role-icon bg-info bg-opacity-10 text-info mx-auto mb-3">
+                            <i class="fa-solid fa-bed-pulse fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold">Patient</h4>
+                        <p class="small text-muted mb-0">Book appointments and receive automated email notifications.</p>
+                    </label>
+                </div>
+            </div>
 
-<label>
-<input type="radio" name="role" value="doctor">
-Doctor
-</label>
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-primary btn-lg px-5 py-3 shadow">
+                    Continue to Registration <i class="fa-solid fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </form>
 
-<br>
+        <div class="text-center mt-4">
+            <p class="small text-muted">Already have an account? <a href="{% url 'login' %}" class="text-primary fw-bold text-decoration-none">Login here</a></p>
+        </div>
+    </div>
+</div>
 
-<label>
-<input type="radio" name="role" value="patient">
-Patient
-</label>
+<style>
+    /* Hide the default radio button but keep it functional */
+    .btn-check:checked + .role-card {
+        background-color: #f0f7ff;
+        border: 2px solid #0d6efd !important;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.1) !important;
+    }
 
-<br><br>
+    .role-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent !important;
+    }
 
-<button type="submit">Continue</button>
+    .role-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.05) !important;
+    }
 
-</form>
+    .role-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    .cursor-pointer {
+        cursor: pointer;
+    }
+</style>
 {% endblock %}

@@ -1,55 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4 align-items-center">
+    <div class="col-md-8">
+        <h2 class="display-6 fw-bold text-primary">Dashboard</h2>
+        <p class="text-muted">Welcome back, <span class="fw-semibold">{{ user.username }}</span>. Here’s what’s happening today.</p>
+    </div>
+    <div class="col-md-4 text-md-end">
+        {% if user.googlecredential %}
+            <div class="badge bg-success-subtle text-success p-2 px-3 border border-success-subtle rounded-pill">
+                <i class="fas fa-check-circle me-1"></i> Google Calendar Sync Active
+            </div>
+        {% else %}
+            <a href="{% url 'connect_google' %}" class="btn btn-primary shadow-sm">
+                <i class="fab fa-google me-2"></i>Link Google Calendar
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="mb-5 opacity-10">
+
 {% if request.user.doctor %}
-<a href="{% url 'create_slot' %}">Create Slot</a>
-<h2>Available Slots</h2>
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm bg-primary text-white mb-3">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1 opacity-75 small fw-bold">Active Slots</h6>
+                            <h2 class="mb-0">{{ slots|length }}</h2>
+                        </div>
+                        <i class="fa-solid fa-calendar-check fs-1 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 text-end d-flex align-items-end justify-content-end">
+            <a href="{% url 'create_slot' %}" class="btn btn-dark btn-lg px-4 mb-3 shadow-sm">
+                <i class="fa-solid fa-plus-circle me-2"></i>Create New Slot
+            </a>
+        </div>
+    </div>
 
-<table border="1">
-
-<tr>
-<th>Date</th>
-<th>Start</th>
-<th>End</th>
-
-</tr>
-
-{% for slot in slots %}
-
-<tr>
-
-<td>{{ slot.date }}</td>
-<td>{{ slot.start_time }}</td>
-<td>{{ slot.end_time }}</td>
-
-<td>
-
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0 fw-bold">Schedule Management</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Date</th>
+                        <th>Time Window</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for slot in slots %}
+                    <tr>
+                        <td class="ps-4 fw-medium">{{ slot.date }}</td>
+                        <td>
+                            <span class="text-secondary">
+                                <i class="fa-regular fa-clock me-1 small"></i>{{ slot.start_time }} - {{ slot.end_time }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if not slot.is_booked %}
+                                <span class="badge rounded-pill bg-info-subtle text-info border border-info-subtle px-3">Available</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3">Booked</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            {% if slot.is_booked %}
+                                <a href="{% url 'cancel_booking' slot.id %}" class="btn btn-outline-danger btn-sm px-3">Cancel</a> 
+                            {% else %}
+                                <a href="{% url 'update_slot' slot.id %}" class="btn btn-outline-warning btn-sm px-3">Update</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-calendar-day d-block fs-1 mb-3 opacity-25"></i>
+                            No slots created yet. Start by adding your availability.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endif %}
-
 
 {% if request.user.patient %}
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm overflow-hidden h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-info bg-opacity-10 p-3 rounded-3 me-3">
+                            <i class="fa-solid fa-clipboard-list text-info fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1 fw-bold">Your Appointments</h5>
+                            <p class="text-muted small mb-3">Check your upcoming medical visits</p>
+                            <a href="{% url 'view_booking' request.user.patient.id %}" class="btn btn-info btn-sm text-white px-4">View My Bookings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2>Doctors</h2>
-
-<ul>
-
-{% for doctor in doctors %}
-
-<li>
-
-Dr. {{ doctor.user.username }}
-
-<a href="{% url 'view_slot' %}">View Slots</a>
-
-</li>
-
-{% endfor %}
-
-</ul>
-
+    <h4 class="fw-bold mb-4 mt-2">Find a Specialist</h4>
+    <div class="row">
+        {% for doctor in doctors %}
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm h-100 hover-card">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar-circle bg-secondary bg-opacity-10 text-secondary me-3">
+                            <i class="fa-solid fa-user-doctor fs-4"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Dr. {{ doctor.user.username }}</h6>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle tiny-text">{{ doctor.specialization }}</span>
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <a href="{% url 'view_slot' doctor.id %}" class="btn btn-outline-primary">
+                            Check Availability
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endif %}
+
+<style>
+    .hover-card { transition: transform 0.2s; }
+    .hover-card:hover { transform: translateY(-5px); }
+    .avatar-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .tiny-text { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .bg-info-subtle { background-color: #e0f7fa; }
+    .bg-success-subtle { background-color: #e8f5e9; }
+    .bg-primary-subtle { background-color: #e7f1ff; }
+</style>
+{% endblock %}

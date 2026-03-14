@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}" class="text-decoration-none">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Appointments</li>
+                </ol>
+            </nav>
+            <h2 class="fw-bold mb-0">My Appointments</h2>
+            <p class="text-muted">Manage and track your scheduled medical consultations.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-primary shadow-sm">
+                <i class="fa-solid fa-plus me-2"></i>Book New Appointment
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-uppercase small fw-bold text-secondary tracking-wider">Doctor Details</th>
+                        <th class="py-3 text-uppercase small fw-bold text-secondary tracking-wider">Date</th>
+                        <th class="py-3 text-uppercase small fw-bold text-secondary tracking-wider">Scheduled Time</th>
+                        <th class="py-3 text-uppercase small fw-bold text-secondary tracking-wider text-end pe-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm bg-primary bg-opacity-10 text-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="fa-solid fa-user-md"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold text-dark">{{ booking.slot.doctor }}</h6>
+                                    <span class="text-muted small">{{ booking.slot.doctor.specialization }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="fw-medium text-dark">
+                                <i class="fa-regular fa-calendar-day me-2 text-primary"></i>{{ booking.slot.date }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-secondary">
+                                <i class="fa-regular fa-clock me-2"></i>{{ booking.slot.start_time }}
+                            </div>
+                        </td>
+                        <td class="text-end pe-4">
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
+                                <i class="fa-solid fa-circle-check me-1"></i> Confirmed
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5">
+                            <div class="py-4">
+                                <i class="fa-solid fa-calendar-xmark fs-1 text-muted mb-3 opacity-25"></i>
+                                <h5 class="text-secondary">No appointments found</h5>
+                                <p class="text-muted small">You haven't booked any medical consultations yet.</p>
+                                <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm mt-2">Book Now</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 p-3 rounded-4 bg-light border-start border-4 border-primary">
+        <div class="d-flex align-items-center">
+            <i class="fa-solid fa-circle-info text-primary me-3 fs-5"></i>
+            <p class="mb-0 small text-secondary">
+                <strong>Notification:</strong> An email confirmation and a Google Calendar invite have been sent for all confirmed bookings. Please arrive 10 minutes prior to your scheduled time.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tracking-wider { letter-spacing: 0.05em; }
+    .bg-success-subtle { background-color: #e8f5e9; }
+    .text-success { color: #2e7d32 !important; }
+    .border-success-subtle { border-color: #c8e6c9 !important; }
+</style>
+{% endblock %}

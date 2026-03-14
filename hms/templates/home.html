@@ -1,13 +1,103 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
+<div class="row align-items-center min-vh-75 py-5">
+    <div class="col-lg-6 mb-5 mb-lg-0">
+        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-bold mb-3 text-uppercase tracking-wider" style="font-size: 0.75rem;">
+            Integrated Healthcare Solutions
+        </span>
+        <h1 class="display-3 fw-bold mb-4" style="letter-spacing: -2px; line-height: 1.1;">
+            Smart Care for <br><span class="text-primary">Modern Hospitals.</span>
+        </h1>
+        <p class="lead text-muted mb-5 pe-lg-5">
+            A seamless bridge between doctors and patients. Manage appointments, sync with Google Calendar, and stay notified—all in one place.
+        </p>
+        
+        <div class="d-flex flex-column flex-sm-row gap-3">
+            <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-5 py-3 shadow">
+                Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg px-5 py-3">
+                Login to Portal
+            </a>
+        </div>
 
-<h2>Welcome</h2>
+        <div class="mt-5 d-flex align-items-center">
+            <div class="d-flex me-3">
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+            </div>
+            <p class="small mb-0 text-secondary fw-medium">Trusted by leading medical professionals</p>
+        </div>
+    </div>
 
-<a href="{% url 'signup' %}">Signup</a>
+    <div class="col-lg-6 ps-lg-5">
+        <div class="row g-4">
+            <div class="col-sm-6">
+                <div class="card border-0 shadow-sm p-3 mb-4 rounded-4 hover-up">
+                    <div class="card-body">
+                        <div class="feature-icon bg-primary bg-opacity-10 text-primary mb-3">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <h5 class="fw-bold">Easy Booking</h5>
+                        <p class="text-muted small mb-0">Instant slot booking with real-time availability updates.</p>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm p-3 rounded-4 hover-up">
+                    <div class="card-body">
+                        <div class="feature-icon bg-success bg-opacity-10 text-success mb-3">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                        <h5 class="fw-bold">Email Alerts</h5>
+                        <p class="text-muted small mb-0">Automated serverless email notifications for every appointment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-sm-5">
+                <div class="card border-0 shadow-sm p-3 mb-4 rounded-4 hover-up">
+                    <div class="card-body">
+                        <div class="feature-icon bg-info bg-opacity-10 text-info mb-3">
+                            <i class="fa-brands fa-google"></i>
+                        </div>
+                        <h5 class="fw-bold">Google Sync</h5>
+                        <p class="text-muted small mb-0">Seamlessly sync your schedule with Google Calendar API.</p>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm p-3 rounded-4 hover-up">
+                    <div class="card-body">
+                        <div class="feature-icon bg-warning bg-opacity-10 text-warning mb-3">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h5 class="fw-bold">Secure Access</h5>
+                        <p class="text-muted small mb-0">Role-based authentication for Doctors and Patients.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<br>
-
-<a href="{% url 'login' %}">Login</a>
-
+<style>
+    .min-vh-75 { min-height: 75vh; }
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 1.25rem;
+    }
+    .hover-up {
+        transition: all 0.3s ease;
+    }
+    .hover-up:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+    }
+    .tracking-wider { letter-spacing: 0.1em; }
+</style>
 {% endblock %}
