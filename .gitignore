@@ -48,3 +48,16 @@ db.sqlite3  # Only if you use SQLite locally
 # Migrations (Generally, keep migrations in version control, do not ignore them)
 # **/migrations/*.py
 # !**/migrations/__init__.py
+
+oauth.json
+node_modules/
+
+
+# Ignore local settings/secrets
+.env
+oauth.json
+
+hms_email_service/package-lock.json
+hms_email_service/package.json
+
+
